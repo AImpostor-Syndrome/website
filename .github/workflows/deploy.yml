@@ -35,10 +35,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # configure-pages resolves the site's base path and exports it, so the
+      # build emits correct links whether the site is served from
+      # github.io/website/ or from the custom domain's root.
+      - uses: actions/configure-pages@v5
+        id: pages
+
       - name: Build site
         run: npm run build
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
 
-      - uses: actions/configure-pages@v5
+      # Fails the deploy if any asset link doesn't resolve (#6) — an unstyled
+      # site should never reach production silently again.
+      - name: Check asset links
+        run: npm run check
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
+
+      # Renders the built site in a real headless browser and fails if the
+      # design didn't actually apply (#6). check-links proves assets resolve;
+      # this proves the page LOOKS right.
+      - name: Install browser for visual check
+        run: npx playwright install --with-deps chromium
+
+      - name: Visual check
+        run: npm run check:visual
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
 
       - uses: actions/upload-pages-artifact@v3
         with:

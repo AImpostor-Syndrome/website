@@ -1,16 +1,21 @@
 {
   "name": "aimpostor-syndrome-website",
   "version": "1.0.0",
-  "description": "AImpostor Syndrome — two engineers building AI-native software in public.",
+  "description": "AImpostor Syndrome \u2014 two engineers building AI-native software in public.",
   "license": "MIT",
   "private": true,
   "type": "module",
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
-    "clean": "rm -rf _site"
+    "clean": "rm -rf _site",
+    "check": "node scripts/check-links.js",
+    "verify": "npm run build && npm run check",
+    "check:visual": "node scripts/check-visual.js",
+    "verify:all": "npm run build && npm run check && npm run check:visual"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "playwright": "^1.63.0"
   }
 }

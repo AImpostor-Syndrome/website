@@ -17,6 +17,15 @@ export default function (eleventyConfig) {
   // eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
 
   return {
+    /**
+     * The site is served from a subpath (github.io/website/), not a domain
+     * root, so every `| url` link must carry that prefix. Without it the
+     * root-absolute /assets/... links 404 and the page renders unstyled.
+     *
+     * When the custom domain goes live the site moves to a root, and this
+     * becomes "/" — see the CNAME runbook in the README.
+     */
+    pathPrefix: process.env.PATH_PREFIX || "/website/",
     dir: {
       input: "src",
       output: "_site",
