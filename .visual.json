@@ -1,0 +1,6 @@
+{
+  "command": "npm run check:visual",
+  "build": "npm run build",
+  "url": "https://aimpostor-syndrome.github.io/website/",
+  "describe": "Headless-Chromium render check: asserts CSS actually applied (brand font, tokens, grid layout, no 404s, no mobile overflow) rather than merely loading."
+}

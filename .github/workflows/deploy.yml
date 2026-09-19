@@ -53,6 +53,17 @@ jobs:
         env:
           PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
 
+      # Renders the built site in a real headless browser and fails if the
+      # design didn't actually apply (#6). check-links proves assets resolve;
+      # this proves the page LOOKS right.
+      - name: Install browser for visual check
+        run: npx playwright install --with-deps chromium
+
+      - name: Visual check
+        run: npm run check:visual
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

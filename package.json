@@ -10,9 +10,12 @@
     "build": "eleventy",
     "clean": "rm -rf _site",
     "check": "node scripts/check-links.js",
-    "verify": "npm run build && npm run check"
+    "verify": "npm run build && npm run check",
+    "check:visual": "node scripts/check-visual.js",
+    "verify:all": "npm run build && npm run check && npm run check:visual"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "playwright": "^1.63.0"
   }
 }

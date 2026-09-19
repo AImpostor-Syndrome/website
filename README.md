@@ -10,12 +10,36 @@ Live at **https://aimpostor-syndrome.github.io/website/** (custom domain pending
 ## Quick start
 
 ```bash
-npm ci          # install (use `npm install` if you're changing dependencies)
-npm start       # local preview with live reload -> http://localhost:8080
-npm run build   # one-off production build into _site/
+npm ci               # install (use `npm install` if you're changing dependencies)
+npm start            # local preview with live reload -> http://localhost:8080
+npm run build        # one-off production build into _site/
+npm run verify:all   # build + both checks — run this before pushing
 ```
 
 Requires Node 20+. No Ruby, no global installs.
+
+## Checks
+
+Two checks guard the deploy. Both run in CI; run them locally with
+`npm run verify:all`.
+
+| Command | What it proves |
+|---|---|
+| `npm run check` | Every `href`/`src` in the built HTML resolves to a real file, **under the path prefix the site is actually served from**. |
+| `npm run check:visual` | The page *renders* — loaded in headless Chromium, asserting the brand font applied, design tokens resolve, the hero computes a real grid, nothing 404s in the browser's network log, and there's no horizontal overflow at 390px. |
+
+Both exist because of [#6](https://github.com/AImpostor-Syndrome/website/issues/6), where
+the site shipped completely unstyled: assets were linked from the domain root while Pages
+serves this repo from `/website/`. The verification that missed it fetched the asset's real
+URL and got a 200 — which is the URL the *file* lives at, not the one the *page asks for*.
+
+The visual check asserts **computed styles**, not screenshots, so it catches "CSS didn't
+apply" without breaking on every copy edit. Its local server deliberately serves *only*
+under the path prefix and 404s everything else — mirroring Pages, because a lenient server
+would pass a build that breaks in production.
+
+Both checks are verified to actually fail: rebuild with `PATH_PREFIX=/` and they exit
+non-zero.
 
 ## How publishing works
 
