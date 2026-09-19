@@ -1,0 +1,192 @@
+---
+layout: layouts/base.njk
+---
+{# `episodes` is newest-first. The first is featured; the rest fill the list.
+   Computed in _data/episodeList.js — Nunjucks' `slice` chunks an array rather
+   than dropping a leading element, which silently duplicated the feature. #}
+{% set latest = episodeList.latest %}
+{% set rest = episodeList.rest %}
+
+<section class="hero" id="top">
+  <div class="wrap hero__inner">
+    <div>
+      <div class="hero__eyebrow">
+        <span class="hero__dot"></span>
+        Live · one session a week
+      </div>
+      <h1 class="hero__title">
+        Two engineers building <span class="grad-text">AI-native</span> software in public.
+      </h1>
+      <p class="hero__lede">
+        Every week, one real working session — the uncertainty, the design debates, the
+        mistakes. Not a polished tutorial.
+      </p>
+      <p class="hero__sub">
+        The twist you're here for: the thing we're building is the system that publishes the
+        story of us building it. An AI teammate, slowly coming to life on camera.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#episodes">
+          <span class="play" style="color: #fff"></span>
+          Watch the latest
+        </a>
+        <a class="btn btn--ghost" href="#episodes">Browse all episodes →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__art">
+        <span class="eq-lg" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </span>
+        <span class="card__tag">Latest · {{ latest.num }}</span>
+        <span class="card__dur">{{ latest.dur }}</span>
+      </div>
+      <div class="card__body">
+        <div class="card__meta">{{ latest.date }}</div>
+        <div class="card__title">{{ latest.title }}</div>
+        <div class="card__blurb">{{ latest.blurb }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap strip__inner">
+    <span>Ship every week</span>
+    <span class="strip__sep">/</span>
+    <span>Publish before perfect</span>
+    <span class="strip__sep">/</span>
+    <span>Show the messy parts</span>
+    <span class="strip__sep">/</span>
+    <span class="strip__accent">→ prompt · waveform · mic</span>
+  </div>
+</div>
+
+<section class="wrap section" id="episodes">
+  <div class="section__head">
+    <div>
+      <div class="mono-label" style="margin-bottom: 12px">The sessions</div>
+      <h2 class="section__title">Every episode is a real working session.</h2>
+    </div>
+    <a class="section__link" href="{{ site.youtube }}">Subscribe on YouTube ↗</a>
+  </div>
+
+  <p class="ep-note">
+    Episode pages aren't live yet — they're what we're building on camera. Sessions are
+    recorded; the pages land when the publish pipeline does.
+  </p>
+
+  <a class="feature" href="{{ site.youtube }}">
+    <div class="feature__art">
+      <span class="feature__play"><span class="play"></span></span>
+      <span class="feature__badge">Latest episode</span>
+    </div>
+    <div class="feature__body">
+      <div class="feature__meta">{{ latest.num }} · {{ latest.date }} · {{ latest.dur }}</div>
+      <div class="feature__title">{{ latest.title }}</div>
+      <div class="feature__blurb">{{ latest.blurb }}</div>
+      <div class="feature__cta">
+        <span class="play"></span>
+        Watch this session
+      </div>
+    </div>
+  </a>
+
+  {% for ep in rest %}
+    <a class="ep-row" href="{{ site.youtube }}">
+      <div class="ep-row__art">
+        <span class="eq-sm" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+      </div>
+      <div>
+        <div class="ep-row__meta">{{ ep.num }} · {{ ep.date }}</div>
+        <div class="ep-row__title">{{ ep.title }}</div>
+        <div class="ep-row__blurb">{{ ep.blurb }}</div>
+      </div>
+      <div class="ep-row__dur">{{ ep.dur }}</div>
+    </a>
+  {% endfor %}
+</section>
+
+<section class="teammate" id="teammate">
+  <div class="wrap teammate__inner">
+    <div>
+      <div class="mono-label" style="margin-bottom: 16px">The third contributor</div>
+      <h2 class="teammate__title">
+        There's an AI teammate on this repo. It's
+        <span class="grad-text">learning to publish us</span>.
+      </h2>
+      <p class="teammate__body">
+        We're honestly just figuring this out as a way to learn and teach. Each week the
+        teammate drafts the written summary for the episode you just watched — sometimes well,
+        often not. We fix it on camera.
+      </p>
+      <p class="teammate__body">
+        Watch it get less wrong over time. That arc <em>is</em> the show.
+      </p>
+    </div>
+    <div class="term">
+      <div class="term__bar">
+        <span class="term__dot" style="background: var(--color-coral)"></span>
+        <span class="term__dot" style="background: var(--color-magenta)"></span>
+        <span class="term__dot" style="background: var(--color-violet)"></span>
+        <span class="term__name">teammate.draft — episode-summary.md</span>
+      </div>
+      <pre class="term__body"><span class="term__c"># drafting summary for {{ latest.num }}...</span>
+<span class="term__p">></span> read the session record + transcript
+<span class="term__p">></span> found 2 decisions, 1 parked idea
+<span class="term__p">></span> wrote 6 paragraphs
+<span class="term__c"># confidence: <span class="term__w">medium-low</span></span>
+<span class="term__c"># jonathan + nick will fix the rest</span></pre>
+    </div>
+  </div>
+</section>
+
+<section class="wrap what" id="what">
+  <div class="mono-label" style="margin-bottom: 14px">What this is</div>
+  <h2 class="what__title">A builder's show, not a highlight reel.</h2>
+  <div class="what__grid">
+    <div class="tile">
+      <div class="tile__icon tile__icon--violet">&gt;_</div>
+      <div class="tile__title">Real sessions, live</div>
+      <div class="tile__body">
+        One unedited working session a week. Design debates, wrong turns, and the occasional
+        thing that actually works — kept in.
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile__icon tile__icon--magenta">◇</div>
+      <div class="tile__title">Building AI-native</div>
+      <div class="tile__body">
+        Jonathan and Nick build software the way it's actually made now — with AI in the loop,
+        not bolted on afterward.
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile__icon tile__icon--coral">↺</div>
+      <div class="tile__title">Publish before perfect</div>
+      <div class="tile__body">
+        The site publishes itself. The teammate drafts each summary; we correct it on air.
+        Rough now, better next week.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap cta">
+  <div class="cta__inner">
+    <div>
+      <h2 class="cta__title">Start where we're farthest along.</h2>
+      <p class="cta__body">
+        It's still rough — that's the point. Watch the latest session, then follow the arc from
+        episode one.
+      </p>
+    </div>
+    <a class="btn btn--primary" href="#episodes">
+      <span class="play" style="color: #fff"></span>
+      Watch the latest
+    </a>
+  </div>
+</section>

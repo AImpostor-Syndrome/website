@@ -1,0 +1,60 @@
+/**
+ * AImpostor Syndrome — design tokens (Gradient direction)
+ *
+ * Ported from the Claude Design handoff bundle's tokens.js
+ * (team-brain@8178ccb:projects/aimpostor-syndrome/branding/
+ *  aimpostor-syndrome-homepage-color-gradient-version/project/tokens.js)
+ * into CSS custom properties, so the homepage and the episode template (#2)
+ * inherit one system without a JS import.
+ *
+ * Spelling note: it's "impostor" (with an o). Canonical everywhere.
+ */
+
+:root {
+  /* Brand — the gradient is load-bearing; use it only for hero moments. */
+  --color-coral: #ff6b5e;
+  --color-magenta: #e0559b;
+  --color-violet: #8b5cf6; /* also the solid UI accent */
+
+  /* Neutrals */
+  --color-ink: #0d1017; /* dark ground */
+  --color-surface: #14181f; /* raised dark surface / body text on light */
+  --color-slate: #8a93a6; /* muted labels, secondary text */
+  --color-paper: #f7f6f2; /* light ground */
+  --color-white: #fff;
+
+  /* Derived text colors used on light ground. */
+  --color-body: #3a4150;
+  --color-muted: #5a616e;
+
+  /**
+   * The one true brand gradient. Always 135deg, coral -> magenta -> violet,
+   * never reversed. Rule from tokens.js: at most ONE gradient element per
+   * viewport, reserved for the mark, the primary button, a hero "AI", or one
+   * signature accent.
+   */
+  --gradient-brand: linear-gradient(135deg, #ff6b5e 0%, #e0559b 52%, #8b5cf6 100%);
+
+  /* Type */
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* 4px base spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-xxl: 64px;
+  --space-xxxl: 100px;
+
+  /* Radii */
+  --radius-pill: 999px;
+  --radius-avatar: 34px;
+  --radius-card: 16px;
+  --radius-button: 10px;
+
+  /* Layout */
+  --site-max: 1180px;
+  --site-gutter: 40px;
+}

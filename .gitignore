@@ -1,0 +1,11 @@
+# Build output — GitHub Actions builds and deploys this; never commit it.
+_site/
+
+# Dependencies
+node_modules/
+
+# Eleventy cache
+.cache/
+
+# OS files
+.DS_Store

@@ -1,0 +1,16 @@
+{
+  "name": "aimpostor-syndrome-website",
+  "version": "1.0.0",
+  "description": "AImpostor Syndrome — two engineers building AI-native software in public.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
