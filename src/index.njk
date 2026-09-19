@@ -72,6 +72,10 @@ layout: layouts/base.njk
     <a class="section__link" href="{{ site.youtube }}">Subscribe on YouTube ↗</a>
   </div>
 
+  <div class="section__count mono-label">
+    {{ episodes | length }} session{{ "s" if episodes | length != 1 }} recorded
+  </div>
+
   <p class="ep-note">
     Episode pages aren't live yet — they're what we're building on camera. Sessions are
     recorded; the pages land when the publish pipeline does.

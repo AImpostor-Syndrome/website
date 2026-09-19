@@ -460,6 +460,12 @@ a:hover {
   white-space: nowrap;
 }
 
+/* Count of recorded sessions, above the list. */
+.section__count {
+  margin-bottom: var(--space-md);
+  color: var(--color-slate);
+}
+
 /* ---------- Episodes ---------- */
 
 .feature {
