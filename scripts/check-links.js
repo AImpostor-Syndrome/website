@@ -13,14 +13,30 @@
  *
  *   npm run build && npm run check
  */
-import { readFileSync, existsSync } from "node:fs";
-import { join, posix } from "node:path";
-import { globSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
+
+/**
+ * Recursively collect files matching an extension.
+ *
+ * Hand-rolled rather than fs.globSync: that landed in Node 22, and CI pins
+ * Node 20 — it worked locally on Node 24 and crashed the build. A plain walk
+ * works on every version we support.
+ */
+function walk(dir, ext, out = []) {
+  if (!existsSync(dir)) return out;
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) walk(full, ext, out);
+    else if (full.endsWith(ext)) out.push(full);
+  }
+  return out;
+}
 
 const SITE = "_site";
 const prefix = (process.env.PATH_PREFIX || "/website/").replace(/\/+$/, "/");
 
-const pages = globSync(`${SITE}/**/*.html`);
+const pages = walk(SITE, ".html");
 if (pages.length === 0) {
   console.error("✗ no HTML found in _site — did the build run?");
   process.exit(1);

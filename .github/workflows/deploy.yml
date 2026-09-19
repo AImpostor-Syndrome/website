@@ -29,7 +29,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # 22, not 20: Node 20 is deprecated on runners and is Playwright's
+          # hard minimum, leaving no headroom for the visual check.
+          node-version: 22
           cache: npm
 
       - name: Install dependencies

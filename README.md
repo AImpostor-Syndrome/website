@@ -16,7 +16,7 @@ npm run build        # one-off production build into _site/
 npm run verify:all   # build + both checks — run this before pushing
 ```
 
-Requires Node 20+. No Ruby, no global installs.
+Requires Node 20+ (CI runs 22). No Ruby, no global installs.
 
 ## Checks
 
